@@ -27,7 +27,7 @@ module.exports = function () {
     * Recebe as entradas, multiplica pelos pesos e calcula a saida
     *
     * @param   {Array} input   array de inteiros binario
-    * @returns {Boolean} saida saida calculada com base nos inputs e pesos
+    * @returns {Boolean}       saida calculada com base nos inputs e pesos
     */
     this.run = function (input) {
       if(pesos.length != input.length) {
@@ -57,7 +57,7 @@ module.exports = function () {
   * @param  {Array} dados           array de dados para treino
   * @param  {Integer} profundidade  quantidade de camadas intermediarias
   * @param  {Integer} quantidade    quantidade de neuronios por camada intermediaria
-  * @return {Array} neuronios       array de neuronios treinados
+  * @return {Array}                 array de neuronios treinados
   */
   function treinar(inputNeuros, dados, profundidade, quantidade) {
     var time = new Date();
@@ -90,7 +90,7 @@ module.exports = function () {
   *
   * @param  {Integer} profundidade  quantidade de camadas intermediarias
   * @param  {Integer} quantidade    quantidade de neuronios por camada intermediaria
-  * @return {Array} neuronios       array de neuronios
+  * @return {Array}                 array de neuronios
   */
   function gerarNeuronios(profundidade, quantidade) {
     var neuronios = [];
@@ -109,7 +109,7 @@ module.exports = function () {
   *
   * @param  {Array} neuronios  array de neuronios treinados ou não
   * @param  {Array} input      array de inteiros
-  * @return {Boolean} saida    saida da rede neural
+  * @return {Boolean}          saida da rede neural
   */
   function executar(neuronios, input) {
     var output = [input];
