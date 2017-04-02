@@ -1,7 +1,7 @@
 # NeuralJS
 Módulo de redes neurais desenvolvido com propósito acadêmico
 ## Como usar
-```
+```js
 var neural = require('./neural');
 
 // classificando uma entrada como ave
