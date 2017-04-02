@@ -1,45 +1,35 @@
 var neural = require('./neural');
 
-// classificando uma ave
-// bico, penas, asas, voa, mama, poe ovo
+// classificando uma entrada como ave
+// bico, olhos, penas, bipede, asas, voa
 var dados_treino = [
   {
     // pombo
-    input: [1,1,1,1,0,1],
+    input: [1, 1, 1, 1, 1, 1],
     output: true
   },
   {
     // galinha
-    input: [1,1,1,0,0,1],
+    input: [1, 1, 1, 1, 1, 0],
     output: true
   },
   {
-    // cachorro
-    input: [0,0,0,0,1,0],
-    output: false
-  },
-  {
     // ornitorrinco
-    input: [1,1,0,0,1,1],
-    output: false
-  },
-  {
-    // tartaruga
-    input: [1,0,0,0,0,1],
-    output: false
-  },
-  {
-    // aviao
-    input: [1,0,1,1,0,0],
+    input: [1, 1, 0, 0, 0, 0],
     output: false
   }
 ];
 
-// camadas iniciais
+// neuronios da camada inicial
 var a = new neural.Neuronio();
 var b = new neural.Neuronio();
 var c = new neural.Neuronio();
+
+// habilitando o modo debug para ver os logs
 neural.debug = true;
+
+// executando o treinamento e salvando os neuronios treinados em uma variavel
 var neuronios_treinados = neural.treinar([a,b,c], dados_treino, 10, 30);
 
-console.log(neural.executar(neuronios_treinados, [0,0,0,0,1,0]) ? 'ave' : 'nao é ave');
+// testando ornitorrinco com os neuronios ja treinados
+console.log(neural.executar(neuronios_treinados, [1, 1, 0, 0, 0, 0]) ? 'ave' : 'nao é ave');
