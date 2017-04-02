@@ -2,7 +2,7 @@
 Módulo de redes neurais desenvolvido com propósito acadêmico
 ## Como usar
 ```js
-var neural = require('./neural');
+var neural = require('../lib/neural');
 
 // classificando uma entrada como ave
 // bico, olhos, penas, bipede, asas, voa
@@ -24,16 +24,11 @@ var dados_treino = [
   }
 ];
 
-// neuronios da camada inicial
-var a = new neural.Neuronio();
-var b = new neural.Neuronio();
-var c = new neural.Neuronio();
-
 // habilitando o modo debug para ver os logs
 neural.debug = true;
 
 // executando o treinamento e salvando os neuronios treinados em uma variavel
-var neuronios_treinados = neural.treinar([a,b,c], dados_treino, 10, 30);
+var neuronios_treinados = neural.treinar(dados_treino, 3, 10, 30);
 
 // testando ornitorrinco com os neuronios ja treinados
 console.log(neural.executar(neuronios_treinados, [1, 1, 0, 0, 0, 0]) ? 'ave' : 'nao é ave');
