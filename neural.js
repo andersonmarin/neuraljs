@@ -1,3 +1,7 @@
+/**
+* @module neuraljs
+*/
+
 module.exports = function () {
 
   var exports = {
@@ -7,7 +11,11 @@ module.exports = function () {
     debug: false
   };
 
-  // neuronio
+  /**
+  * Cria um novo neuronio
+  *
+  * @returns {Neuronio}
+  */
   function Neuronio() {
     var pesos = [];
 
@@ -15,7 +23,12 @@ module.exports = function () {
       return pesos;
     };
 
-    // recebe as entradas, multiplica pelos pesos e calcula a saida
+    /**
+    * Recebe as entradas, multiplica pelos pesos e calcula a saida
+    *
+    * @param   {Array} input   array de inteiros binario
+    * @returns {Boolean} saida saida calculada com base nos inputs e pesos
+    */
     this.run = function (input) {
       if(pesos.length != input.length) {
         pesos = new Array(input.length);
@@ -27,7 +40,9 @@ module.exports = function () {
       return o > 0;
     }
 
-    // recalcula os pesos
+    /**
+    * Redefine os valores dos pesos aleatoriamente entre 1 ou -1
+    */
     this.reload = function () {
       for (var p = 0; p < pesos.length; p++) {
         pesos[p] = Math.random() > 0.5 ? 1 : -1;
@@ -35,15 +50,23 @@ module.exports = function () {
     };
   }
 
-  // calcula os pesos comparando o resultado obtido com o esperado
+  /**
+  * Calcula os pesos comparando o resultado obtido com o esperado
+  *
+  * @param  {Array} inputNeuros     array de neuronios
+  * @param  {Array} dados           array de dados para treino
+  * @param  {Integer} profundidade  quantidade de camadas intermediarias
+  * @param  {Integer} quantidade    quantidade de neuronios por camada intermediaria
+  * @return {Array} neuronios       array de neuronios treinados
+  */
   function treinar(inputNeuros, dados, profundidade, quantidade) {
     var time = new Date();
-    var neuronios = geraNeuro(profundidade || 0, quantidade || 0);
+    var neuronios = gerarNeuronios(profundidade || 0, quantidade || 0);
     neuronios.unshift(inputNeuros);
     neuronios.push(new Neuronio());
     for (var i = 0; i < dados.length; i++) {
       if(executar(neuronios, dados[i].input) == dados[i].output) {
-        if(exports.debug) console.log('dados[' + i + ']' + ' output = ' + dados[i].output);
+        if(exports.debug) console.log('dados[' + i + ']' + ' output ' + dados[i].output);
       } else {
         neuronios.forEach(function (camada) {
           if(Array.isArray(camada)) {
@@ -54,20 +77,26 @@ module.exports = function () {
             camada.reload();
           }
         });
-        if(exports.debug) console.log('dados[' + i + ']' + ' reload pesos');
+        if(exports.debug) console.log('dados[' + i + ']' + ' reload pesos\n');
         i = -1;
       }
     }
-    if(exports.debug) console.log('Treinado em ' + (((new Date()).getTime() - time.getTime()) / 1000) + 's');
+    if(exports.debug) console.log('\ntreinado em ' + (((new Date()).getTime() - time.getTime()) / 1000) + 's');
     return neuronios;
   }
 
-  // gera as camadas intermediarias
-  function geraNeuro(prof, tam) {
+  /**
+  * Gera as camadas intermediarias de neuronios
+  *
+  * @param  {Integer} profundidade  quantidade de camadas intermediarias
+  * @param  {Integer} quantidade    quantidade de neuronios por camada intermediaria
+  * @return {Array} neuronios       array de neuronios
+  */
+  function gerarNeuronios(profundidade, quantidade) {
     var neuronios = [];
-    for (var p = 0; p < prof; p++) {
+    for (var p = 0; p < profundidade; p++) {
       var nr = [];
-      for (var t = 0; t < tam; t++) {
+      for (var q = 0; q < quantidade; q++) {
         nr.push(new Neuronio());
       }
       neuronios.push(nr);
@@ -75,7 +104,13 @@ module.exports = function () {
     return neuronios;
   }
 
-  // executa todos os neuronios das camadas iniciais -> intermediarias -> saida
+  /**
+  * Executa todos os neuronios em todas as camadas
+  *
+  * @param  {Array} neuronios  array de neuronios treinados ou não
+  * @param  {Array} input      array de inteiros
+  * @return {Boolean} saida    saida da rede neural
+  */
   function executar(neuronios, input) {
     var output = [input];
     var result = null;

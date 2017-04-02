@@ -1,0 +1,19 @@
+{
+  "name": "neuraljs",
+  "version": "0.0.1",
+  "description": "Módulo de redes neurais desenvolvido com propósito acadêmico",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersonmarin/neuraljs.git"
+  },
+  "author": "Anderson Marin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andersonmarin/neuraljs/issues"
+  },
+  "homepage": "https://github.com/andersonmarin/neuraljs#readme"
+}
